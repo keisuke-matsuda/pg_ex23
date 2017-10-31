@@ -17,31 +17,40 @@ public class Main {
 		int basicCharge = 500;
 		int unitPrice = INITIAL_CALL_UNIT_PRICE;
 		int callCharge = 0;
-		String invoicefile = "C:/KM_Person/pleiades-4.6.3-ultimate-win-64bit-jre_20170422/pg_ex23/src/invoice/invoice.dat";
+		String invoicefile = "file/invoice.dat";
 
 		RecordReader reader = new RecordReader();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(invoicefile));
 
-		Record record;
-		for (record = reader.read(); record != null; record = reader.read()) {
-			char recordcode = record.getRecordCode();
+		for (Record record = reader.read(); record != null; record = reader.read()) {
+			char recordCode = record.getRecordCode();
 			String ownerTelNumber = null;
-
-			switch (recordcode) {
-			case 1:
+			switch (recordCode) {
+			case '1':
 				ownerTelNumber = record.getOwnerTelNumber();
-			case 2:
+				break;
+			case '2':
 				String serviceCode = record.getServiceCode();
+				if(serviceCode.equals("E1")){
+					break;
+				}
 				String serviceOption = record.getServiceOption();
-			case 5:
+				break;
+			case '5':
 				int callTime = record.getCallMinutes();
-			case 9:
-				writer.write("1" + ownerTelNumber + "\n");
-				writer.write("5" + basicCharge + "\n");
-				writer.write("7" + callCharge + "\n");
-				writer.write("9======================================\n");
+				int callStartHour = record.getStartHour();
+				break;
+			case '9':
+				writer.write("1 " + ownerTelNumber + "\n");
+				writer.write("5 " + basicCharge + "\n");
+				writer.write("7 " + callCharge + "\n");
+				writer.write("9 ======================================\n");
 				callCharge = 0;
+				basicCharge = 0;
+				serviceCode = null;
+				break;
 			}
+
 		}
 		reader.close();
 		writer.close();

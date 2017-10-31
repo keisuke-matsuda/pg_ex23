@@ -49,6 +49,4 @@ public class Record {
 		return record.substring(23, 36);
 
 	}
-
-	public 
 }

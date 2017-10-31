@@ -1,6 +1,7 @@
 package invoice;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,8 +12,7 @@ public class RecordReader {
 	private BufferedReader reader;
 
 	public RecordReader() throws FileNotFoundException {
-		this(new FileReader(
-				"C:/KM_Person/pleiades-4.6.3-ultimate-win-64bit-jre_20170422/pg_ex23/src/invoice/record.log"));
+		this(new FileReader(new File("file/record.log")));
 	}
 
 	public RecordReader(Reader reader) {
